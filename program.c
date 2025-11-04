@@ -83,7 +83,7 @@ integer main()
               status = scanf("%lli", & input);
         }
 
-        invertible_base = input
+        invertible_base = input;
 
         integer greatest_common_divisor_of_invertible_base_and_set_modulus = find_greatest_common_divisor(invertible_base, set_modulus);
 

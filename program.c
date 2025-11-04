@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdint.h>
 
-typedef uint64_t integer;
+typedef int64_t integer;
 
 integer find_greatest_common_divisor(integer first_integer, integer second_integer)
 {
@@ -12,6 +12,11 @@ integer find_greatest_common_divisor(integer first_integer, integer second_integ
 
 integer find_modular_multiplicative_inverse(integer invertible_base, integer modulus)
 {
+    while (invertible_base < 0)
+        invertible_base += modulus;
+        
+    invertible_base %= modulus;
+    
     integer quotient, remainder, modular_multiplicative_inverse = 1;
 
     while (invertible_base != 1)
@@ -48,7 +53,7 @@ integer main()
 
         integer input, status, buffer;
 
-        status = scanf("%i", & input);
+        status = scanf("%lli", & input);
 
         while (status != 1)
         {
@@ -58,14 +63,14 @@ integer main()
               printf("\n\n");
               printf("Enter the set modulus: ");
 
-              status = scanf("%i", & input);
+              status = scanf("%lli", & input);
         }
 
         set_modulus = input;
 
-        printf("Enter an invertible base (modulated by %i) to find its multiplicative inverse: ", set_modulus);
+        printf("Enter an invertible base (modulated by %lli) to find its multiplicative inverse: ", set_modulus);
 
-        status = scanf("%i", & input);
+        status = scanf("%lli", & input);
 
         while (status != 1)
         {
@@ -73,23 +78,23 @@ integer main()
 
               printf("Invalid input.");
               printf("\n\n");
-              printf("Enter an invertible base (modulated by %i) to find its multiplicative inverse: ", set_modulus);
+              printf("Enter an invertible base (modulated by %lli) to find its multiplicative inverse: ", set_modulus);
 
-              status = scanf("%i", & input);
+              status = scanf("%lli", & input);
         }
 
-        invertible_base = input;
+        invertible_base = input
 
         integer greatest_common_divisor_of_invertible_base_and_set_modulus = find_greatest_common_divisor(invertible_base, set_modulus);
 
-        if (greatest_common_divisor_of_invertible_base_and_set_modulus != 1)
+        if ((greatest_common_divisor_of_invertible_base_and_set_modulus != 1) && (greatest_common_divisor_of_invertible_base_and_set_modulus != -1))
         {
             printf("\n");
             printf("A base is invertible only when it is coprime to the modulus; that is, when the greatest common divisor of the twain is but 1.");
             printf("\n");
-            printf("The base %i is not coprime to the modulus %i as their greatest common divisor is %i, which is greater than 1;", invertible_base, set_modulus, greatest_common_divisor_of_invertible_base_and_set_modulus);
+            printf("The base %lli is not coprime to the modulus %lli as their greatest common divisor is %lli, which is greater than 1;", invertible_base, set_modulus, greatest_common_divisor_of_invertible_base_and_set_modulus);
             printf("\n");
-            printf("Therefore, the base %i, when modulated by %i, is not invertible and has no multiplicative inverse.", invertible_base, set_modulus);
+            printf("Therefore, the base %lli, when modulated by %lli, is not invertible and has no multiplicative inverse.", invertible_base, set_modulus);
         }
         else
         {
@@ -98,7 +103,7 @@ integer main()
             if (modular_multiplicative_inverse < 0)
                 modular_multiplicative_inverse += set_modulus;
 
-            printf("The multiplicative inverse of %i (modulated by %i) is %i.", invertible_base, set_modulus, modular_multiplicative_inverse);
+            printf("The multiplicative inverse of %lli (modulated by %lli) is %lli.", invertible_base, set_modulus, modular_multiplicative_inverse);
         }
 
         printf("\n\n");
